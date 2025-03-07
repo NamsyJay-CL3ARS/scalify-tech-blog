@@ -14,13 +14,16 @@ linkedin:
   Icon:
     Class: fab fa-linkedin fa-fw
 
-# 003: Twitter
-twitter:
+# 003: X
+x:
   Weight: 3
-  Prefix: https://twitter.com/
-  Title: Twitter
+  Prefix: https://x.com/
+  Title: X
   Icon:
-    Class: fab fa-twitter fa-fw
+    Class: fab fa-x-twitter fa-fw
+
+twitter:
+  Alias: x
 
 # 004: Instagram
 instagram:
@@ -49,7 +52,7 @@ telegram:
 # 007: Medium
 medium:
   Weight: 7
-  Prefix: https://medium.com/
+  Prefix: https://medium.com/@
   Title: Medium
   Icon:
     Class: fab fa-medium fa-fw
@@ -567,7 +570,39 @@ rootme:
   Title: Root-Me
   Prefix: https://www.root-me.org/
   Icon:
-    Src: svg/icons/rootme.svg
+    Simpleicons: rootme
+
+# 073: Malt
+malt:
+  Weight: 73
+  Prefix: https://www.malt.fr/profile/
+  Title: Malt
+  Icon:
+    Src: svg/icons/malt.svg
+
+# 074: TikTok
+tiktok:
+  Weight: 74
+  Url: https://www.tiktok.com/
+  Title: TikTok
+  Icon:
+    Simpleicons: tiktok
+
+# 075: TryHackMe
+tryhackme:
+  Weight: 75
+  Title: TryHackMe
+  Prefix: https://tryhackme.com/p/
+  Icon:
+    Simpleicons: tryhackme
+
+# 076: Codeberg
+codeberg:
+  Weight: 76
+  Title: Codeberg
+  Prefix: https://codeberg.org/
+  Icon:
+    Simpleicons: codeberg
 
 # Phone
 phone:

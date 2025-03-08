@@ -1,0 +1,40 @@
+name: 
+
+on:
+  push:
+    branches:
+      - main
+      - dev
+  pull_request:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
+    steps:
+      # Hugo Server SetUp
+        - name: Setup Hugo
+          uses: peaceiris/actions-hugo@v3
+          with:
+            hugo-version: '0.145.0'
+            extended: true
+      # Steps: AWS Credential Configuration
+        - name: Configure AWS Credentials
+          uses: aws-actions/configure-aws-credentials@v4
+          with:
+            aws-region: ${{ secrets.AWS_REGION }}
+            role_to_assume: ${{ secrets.AWS_ROLE_ARN }}
+        - name: Verify AWS Identity
+          run: aws sts get-caller-identity
+      # Step: S3 Sync
+        - name: S3 Sync
+          run:  |
+            aws s3 sync  . s3://${{secrets.S3_BUCKET_NAME}}
+      # Step: Invalidate CloudFront Cache To Ensure Changes Are Visible
+        - name: Invalidate The CloudFront Cache 
+        - run:  |
+            aws cloudfront create-invalidation \
+            --distribution-id ${{secrets.CLOUDFRONT_DISTRIBUTION_ID}} \
+            --paths "/*" \

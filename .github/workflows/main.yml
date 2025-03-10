@@ -1,4 +1,4 @@
-name: 
+name: Building A Website Using Hugo Server
 
 on:
   push:
@@ -7,12 +7,14 @@ on:
       - dev
   pull_request:
 
+permissions:
+  id-token: write
+  contents: read
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    permissions:
-      id-token: write
-      contents: read
+   
     steps:
       # Hugo Server SetUp
         - name: Setup Hugo
@@ -20,6 +22,15 @@ jobs:
           with:
             hugo-version: '0.145.0'
             extended: true
+        - name: Build
+          run: hugo --minify
+
+        - name: Upload BUild Artifact
+          uses: actions/upload-artifact@v4
+          with:
+            name: scalify-tech-blog 
+            path: public/**
+            
       # Steps: AWS Credential Configuration
         - name: Configure AWS Credentials
           uses: aws-actions/configure-aws-credentials@v4
@@ -28,10 +39,12 @@ jobs:
             role_to_assume: ${{ secrets.AWS_ROLE_ARN }}
         - name: Verify AWS Identity
           run: aws sts get-caller-identity
+          
       # Step: S3 Sync
         - name: S3 Sync
           run:  |
-            aws s3 sync  . s3://${{secrets.S3_BUCKET_NAME}}
+            aws s3 sync  . s3://${{secrets.S3_BUCKET_NAME}} --delete
+      
       # Step: Invalidate CloudFront Cache To Ensure Changes Are Visible
         - name: Invalidate The CloudFront Cache 
         - run:  |

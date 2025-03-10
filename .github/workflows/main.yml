@@ -16,7 +16,7 @@ jobs:
     steps:
       # Hugo Server SetUp
         - name: Setup Hugo
-          uses: peaceiris/actions-hugo@v4
+          uses: peaceiris/actions-hugo@v3
           with:
             hugo-version: '0.145.0'
             extended: true

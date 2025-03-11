@@ -50,9 +50,9 @@ jobs:
         - name: s3 Sync
           run:  |
             aws s3 sync . s3://${{secrets.S3_BUCKET_NAME}}
-      # INvalidate CloudFront Cache To Ensure Changes Are Visible  
+      # Invalidate CloudFront Cache To Ensure Changes Are Visible  
         - name: Invalidate The CloudFront Cache
           run: |
             aws cloudfront create-invalidation \
-            --distribution-id #{{secrets.CLOUDFRONTDISTRIBUTION_ID}} \
+            --distribution-id ${{secrets.CLOUDFRONT_DISTRIBUTION_ID}} \
             --paths "/*" \

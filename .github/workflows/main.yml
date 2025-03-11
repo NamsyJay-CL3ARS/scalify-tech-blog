@@ -30,7 +30,7 @@ jobs:
           uses: actions/uploads-artifact@v4
           with:
             name: scalify-tech-blog 
-            path: public/*
+            path: public/**
 
         - name: Download Build Artifacts
           uses: actions/downloads-artifact@v4
